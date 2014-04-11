@@ -1,5 +1,3 @@
-/Debug
-/Release
 # Compiled Object files
 *.slo
 *.lo
@@ -13,3 +11,5 @@
 *.lai
 *.la
 *.a
+
+BN.bin
