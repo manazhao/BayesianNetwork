@@ -26,8 +26,4 @@ SUBDIRS := \
 src/vb/prob \
 src/vb/bn \
 src \
-src/cf \
-src/recsys/data \
-src/recsys/thrift/gen-cpp \
-src/vb \
 

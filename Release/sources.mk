@@ -23,5 +23,7 @@ C_UPPER_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+src/vb/prob \
+src/vb/bn \
 src \
 

@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -larmadillo -llapack -larpack
+LIBS := -larmadillo -lboost_system -lboost_filesystem -llapack -larpack
 

@@ -4,31 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/FeatureObject.cpp \
-../src/Feedback.cpp \
-../src/ItemObject.cpp \
-../src/LatentObject.cpp \
-../src/MFImplicitModel.cpp \
-../src/MFVB.cpp \
-../src/UserObject.cpp 
+../src/csv.cpp \
+../src/main.cpp 
 
 OBJS += \
-./src/FeatureObject.o \
-./src/Feedback.o \
-./src/ItemObject.o \
-./src/LatentObject.o \
-./src/MFImplicitModel.o \
-./src/MFVB.o \
-./src/UserObject.o 
+./src/csv.o \
+./src/main.o 
 
 CPP_DEPS += \
-./src/FeatureObject.d \
-./src/Feedback.d \
-./src/ItemObject.d \
-./src/LatentObject.d \
-./src/MFImplicitModel.d \
-./src/MFVB.d \
-./src/UserObject.d 
+./src/csv.d \
+./src/main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

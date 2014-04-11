@@ -8,6 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/vb/prob/subdir.mk
+-include src/vb/bn/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -38,19 +40,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: MFVB
+all: BN
 
 # Tool invocations
-MFVB: $(OBJS) $(USER_OBJS)
+BN: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "MFVB" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "BN" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) MFVB
+	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) BN
 	-@echo ' '
 
 .PHONY: all clean dependents
