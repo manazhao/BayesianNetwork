@@ -1,0 +1,31 @@
+src/vb/bn/VBMEngine.d: ../src/vb/bn/VBMEngine.cpp \
+ ../src/vb/bn/VBMEngine.h ../src/vb/bn/Model.h ../src/vb/bn/Variable.h \
+ ../src/vb/bn/../prob/Distribution.h ../src/vb/bn/../prob/NatParamVec.h \
+ ../src/vb/bn/../prob/Gaussian.h ../src/vb/bn/../prob/Distribution.h \
+ ../src/vb/bn/../prob/InverseGamma.h \
+ ../src/vb/bn/../prob/MVInverseGamma.h ../src/vb/bn/GaussianModel.h \
+ ../src/vb/bn/InverseGammaModel.h ../src/vb/bn/HyperParamModel.h
+
+../src/vb/bn/VBMEngine.h:
+
+../src/vb/bn/Model.h:
+
+../src/vb/bn/Variable.h:
+
+../src/vb/bn/../prob/Distribution.h:
+
+../src/vb/bn/../prob/NatParamVec.h:
+
+../src/vb/bn/../prob/Gaussian.h:
+
+../src/vb/bn/../prob/Distribution.h:
+
+../src/vb/bn/../prob/InverseGamma.h:
+
+../src/vb/bn/../prob/MVInverseGamma.h:
+
+../src/vb/bn/GaussianModel.h:
+
+../src/vb/bn/InverseGammaModel.h:
+
+../src/vb/bn/HyperParamModel.h:

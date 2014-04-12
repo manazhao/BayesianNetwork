@@ -26,7 +26,11 @@ protected:
 	}
 public:
 	MVInverseGamma(vec const& alphaVec = vec(), vec const& betaVec = vec(),
-			bool isCanonical = false);
+			bool isCanonical = false):Distribution<vec>(isCanonical),m_alpha_vec(alphaVec),m_beta_vec(betaVec),m_ss_cache(alphaVec.size(),2),m_dim(alphaVec.size()) {
+		// TODO Auto-generated constructor stub
+
+	}
+
 
 	MVInverseGamma(size_t const& dim) :
 			Distribution<vec>(false), m_alpha_vec(dim), m_beta_vec(dim), m_ss_cache(
@@ -61,7 +65,6 @@ public:
 	MVInverseGamma operator!() const;
 	MVInverseGamma operator+(MVInverseGamma const& rhs) const;
 	MVInverseGamma& operator+=(MVInverseGamma const& rhs);
-	virtual ~MVInverseGamma();
 };
 ostream& operator<<(ostream&, MVInverseGamma const&);
 void test_MVInverseGamma();

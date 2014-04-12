@@ -9,16 +9,16 @@
 #include <boost/math/special_functions/digamma.hpp>
 
 namespace prob {
+//
+//MVInverseGamma::MVInverseGamma(vec const& alphaVec, vec const& betaVec,bool isCanonical)
+//:Distribution<vec>(isCanonical),m_alpha_vec(alphaVec),m_beta_vec(betaVec),m_ss_cache(alphaVec.size(),2),m_dim(alphaVec.size()) {
+//	// TODO Auto-generated constructor stub
+//
+//}
 
-MVInverseGamma::MVInverseGamma(vec const& alphaVec, vec const& betaVec,bool isCanonical)
-:Distribution<vec>(isCanonical),m_alpha_vec(alphaVec),m_beta_vec(betaVec),m_ss_cache(alphaVec.size(),2),m_dim(alphaVec.size()) {
-	// TODO Auto-generated constructor stub
-
-}
-
-MVInverseGamma::~MVInverseGamma() {
-	// TODO Auto-generated destructor stub
-}
+//MVInverseGamma::~MVInverseGamma() {
+//	// TODO Auto-generated destructor stub
+//}
 
 
 MVInverseGamma::MVInverseGamma(NatParamVec const& paramVec):m_dim(0){
