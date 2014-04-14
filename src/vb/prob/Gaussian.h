@@ -21,7 +21,7 @@ namespace prob {
  * Gaussian  distribution and Inverse Gamma distribution for the mean and variance accordingly.
  */
 class DiagMVGaussian: public Distribution<vec> {
-protected:
+public:
 	colvec m_mean;
 	colvec m_cov;
 	/// compact second order moment cache

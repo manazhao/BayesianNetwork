@@ -25,8 +25,8 @@ MVInverseGamma::MVInverseGamma(NatParamVec const& paramVec):m_dim(0){
 	m_is_canonical = paramVec.m_is_canonical;
 	assert(paramVec.size() >=2 && paramVec.size() / 2 == 0);
 	m_dim  = paramVec.size() / 2;
-	m_alpha_vec = paramVec.m_vec.cols(0,m_dim - 1);
-	m_beta_vec = paramVec.m_vec.cols(m_dim, 2 * m_dim - 1);
+	m_alpha_vec = paramVec.m_vec.rows(0,m_dim - 1);
+	m_beta_vec = paramVec.m_vec.rows(m_dim, 2 * m_dim - 1);
 	m_ss_cache = mat(m_dim,2);
 	m_is_updated = true;
 }
@@ -117,19 +117,19 @@ void MVInverseGamma::updateSSCache(){
 
 
 MVInverseGamma& MVInverseGamma::operator=(NatParamVec const& paramVec) {
-	assert( paramVec.size() / 2 == 0 && paramVec.size() >= 2);
+	assert( paramVec.size() % 2 == 0 && paramVec.size() >= 2);
 	m_is_canonical = paramVec.m_is_canonical;
 	size_t dim = paramVec.size() >> 1;
-	m_alpha_vec = paramVec.m_vec.cols(0,dim-1);
-	m_beta_vec = paramVec.m_vec.cols(dim,2 * dim - 1);
+	m_alpha_vec = paramVec.m_vec.rows(0,dim-1);
+	m_beta_vec = paramVec.m_vec.rows(dim,2 * dim - 1);
 	m_is_updated = true;
 	return *this;
 }
 
 MVInverseGamma::operator NatParamVec() {
 	NatParamVec fp((size_t) 2 * m_alpha_vec.size(), m_is_canonical);
-	fp.m_vec.cols(0,m_alpha_vec.size()-1) = m_alpha_vec;
-	fp.m_vec.cols(m_alpha_vec.size(), 2 * m_alpha_vec.size() -1) = m_beta_vec;
+	fp.m_vec.rows(0,m_alpha_vec.size()-1) = m_alpha_vec;
+	fp.m_vec.rows(m_alpha_vec.size(), 2 * m_alpha_vec.size() -1) = m_beta_vec;
 	return fp;
 }
 

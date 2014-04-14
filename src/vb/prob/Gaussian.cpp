@@ -38,6 +38,7 @@ void DiagMVGaussian::toNonCanonical() {
 DiagMVGaussian::moment_type DiagMVGaussian::moment(size_t const& order) {
 	assert(order == 1 || order == 2);
 	moment_type mVal;
+	toNonCanonical();
 	if(order == 2){
 		mVal = updateSSCache();
 	}else{
@@ -64,8 +65,9 @@ DiagMVGaussian::DiagMVGaussian(NatParamVec const& paramVec) {
 	size_t vecSize = paramVec.m_vec.size();
 	/// divide by 2
 	size_t probDim = vecSize >> 1;
-	m_mean = paramVec.m_vec.cols(0,probDim - 1);
-	m_cov = paramVec.m_vec.cols(probDim, 2 * probDim - 1);
+	m_mean = paramVec.m_vec.rows(0,probDim - 1);
+	m_cov = paramVec.m_vec.rows(probDim, 2 * probDim - 1);
+	m_is_updated = true;
 }
 
 DiagMVGaussian& DiagMVGaussian::operator=(NatParamVec const& paramVec) {
@@ -103,12 +105,12 @@ DiagMVGaussian DiagMVGaussian::operator+(DiagMVGaussian const& rhs) const {
 	DiagMVGaussian rhs1 = (rhs.m_is_canonical ? rhs : !rhs);
 	resultParam.m_mean += rhs1.m_mean;
 	resultParam.m_cov += rhs1.m_cov;
+	resultParam.m_is_updated = true;
 	return resultParam;
 }
 
 DiagMVGaussian& DiagMVGaussian::operator+=(DiagMVGaussian const& rhs) {
 	(*this) = (*this) + rhs;
-	m_is_updated = true;
 	return *this;
 }
 
@@ -145,6 +147,7 @@ Gaussian::Gaussian(NatParamVec const& paramVec) {
 	}
 	m_mean = paramVec.m_vec[0];
 	m_var = paramVec.m_vec[1];
+	m_is_updated = true;
 }
 
 Gaussian& Gaussian::operator=(NatParamVec const& paramVec) {
@@ -154,6 +157,7 @@ Gaussian& Gaussian::operator=(NatParamVec const& paramVec) {
 	}
 	m_mean = paramVec.m_vec[0];
 	m_var = paramVec.m_vec[1];
+	m_is_updated = true;
 	return *this;
 }
 
@@ -183,6 +187,7 @@ Gaussian Gaussian::operator+(Gaussian const& rhs) const {
 	Gaussian rhs1 = (rhs.m_is_canonical ? rhs : !rhs);
 	resultParam.m_mean += rhs1.m_mean;
 	resultParam.m_var += rhs1.m_var;
+	resultParam.m_is_updated = true;
 	return resultParam;
 }
 
