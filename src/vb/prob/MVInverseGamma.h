@@ -14,7 +14,7 @@ namespace prob {
 
 class MVInverseGamma: public prob::Distribution<vec> {
 	friend ostream& operator<<(ostream&, MVInverseGamma const&);
-protected:
+public:
 	vec m_alpha_vec;
 	vec m_beta_vec;
 	//// cache the sufficient statistics
