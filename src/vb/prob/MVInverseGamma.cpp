@@ -9,22 +9,11 @@
 #include <boost/math/special_functions/digamma.hpp>
 
 namespace prob {
-//
-//MVInverseGamma::MVInverseGamma(vec const& alphaVec, vec const& betaVec,bool isCanonical)
-//:Distribution<vec>(isCanonical),m_alpha_vec(alphaVec),m_beta_vec(betaVec),m_ss_cache(alphaVec.size(),2),m_dim(alphaVec.size()) {
-//	// TODO Auto-generated constructor stub
-//
-//}
-
-//MVInverseGamma::~MVInverseGamma() {
-//	// TODO Auto-generated destructor stub
-//}
-
 
 MVInverseGamma::MVInverseGamma(NatParamVec const& paramVec):m_dim(0){
 	m_is_canonical = paramVec.m_is_canonical;
-	assert(paramVec.size() >=2 && paramVec.size() / 2 == 0);
-	m_dim  = paramVec.size() / 2;
+	assert(paramVec.size() >=2 && paramVec.size() % 2 == 0);
+	m_dim  = paramVec.size() >> 1;
 	m_alpha_vec = paramVec.m_vec.rows(0,m_dim - 1);
 	m_beta_vec = paramVec.m_vec.rows(m_dim, 2 * m_dim - 1);
 	m_ss_cache = mat(m_dim,2);
@@ -146,12 +135,12 @@ MVInverseGamma MVInverseGamma::operator+(MVInverseGamma const& rhs) const {
 	MVInverseGamma rhs1 = (rhs.m_is_canonical ? rhs : !rhs);
 	resultParam.m_alpha_vec += rhs1.m_alpha_vec;
 	resultParam.m_beta_vec += rhs1.m_beta_vec;
+	resultParam.m_is_updated = true;
 	return resultParam;
 }
 
 MVInverseGamma& MVInverseGamma::operator+=(MVInverseGamma const& rhs) {
 	(*this) = (*this) + rhs;
-	m_is_updated = true;
 	return *this;
 }
 

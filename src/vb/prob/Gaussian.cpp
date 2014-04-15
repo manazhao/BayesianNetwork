@@ -17,11 +17,11 @@ void DiagMVGaussian::reset() {
 }
 
 vec DiagMVGaussian::updateSSCache() {
-	toNonCanonical();
 	if (m_is_updated) {
 		if (is_observed()) {
 			m_sm_cache = vectorise(m_value % m_value);
 		} else {
+			toNonCanonical();
 			m_sm_cache = vectorise(m_mean % m_mean + m_cov);
 		}
 		m_is_updated = false;
@@ -79,8 +79,8 @@ DiagMVGaussian& DiagMVGaussian::operator=(NatParamVec const& paramVec) {
 DiagMVGaussian::operator NatParamVec() {
 	vec flatVec(m_mean.size() * 2);
 	NatParamVec fp(flatVec, m_is_canonical);
-	fp.range_assign(0, m_mean);
-	fp.range_assign(m_mean.size(), m_cov);
+	fp.m_vec.rows(0,m_mean.size() - 1) = m_mean;
+	fp.m_vec.rows(m_mean.size(), m_mean.size() * 2 - 1) = m_cov;
 	return fp;
 }
 
@@ -163,8 +163,8 @@ Gaussian& Gaussian::operator=(NatParamVec const& paramVec) {
 
 Gaussian::operator NatParamVec() {
 	NatParamVec fp(vec(2), m_is_canonical);
-	fp.m_vec[0] = m_mean;
-	fp.m_vec[1] = m_var;
+	fp.m_vec(0) = m_mean;
+	fp.m_vec(1) = m_var;
 	return fp;
 }
 

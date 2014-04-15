@@ -35,7 +35,7 @@ struct NatParamVec {
 	}
 
 	NatParamVec(size_t const& sz, bool is_canonical = false) :
-			m_vec(sz), m_is_canonical(is_canonical) {
+			m_vec(sz,fill::zeros), m_is_canonical(is_canonical) {
 	}
 
 	NatParamVec operator+(NatParamVec const& rhs) const {

@@ -64,6 +64,7 @@ public:
 		assert(paramVec.size() == 2);
 		m_alpha = paramVec[0];
 		m_beta = paramVec[1];
+		m_is_updated = true;
 	}
 	void toNonCanonical() {
 		if (m_is_canonical) {
@@ -141,6 +142,7 @@ public:
 		}
 		m_alpha = paramVec.m_vec[0];
 		m_beta = paramVec.m_vec[1];
+		m_is_updated = true;
 		return *this;
 	}
 
@@ -164,12 +166,12 @@ public:
 		InverseGamma rhs1 = (rhs.m_is_canonical ? rhs : !rhs);
 		resultParam.m_alpha += rhs1.m_alpha;
 		resultParam.m_beta += rhs1.m_beta;
+		resultParam.m_is_updated = true;
 		return resultParam;
 	}
 
 	InverseGamma& operator+=(InverseGamma const& rhs) {
 		(*this) = (*this) + rhs;
-		m_is_updated = true;
 		return *this;
 	}
 
