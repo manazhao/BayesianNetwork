@@ -12,4 +12,10 @@
 *.la
 *.a
 
-BN.bin
+*.bin
+Debug/
+Release/
+LibDebug/
+LibRelease/
+
+
