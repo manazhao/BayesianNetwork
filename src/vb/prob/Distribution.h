@@ -22,9 +22,9 @@ class Distribution {
 public:
 	typedef T value_type;
 	/// moment
-	typedef NatParamVec moment_type;
+	typedef DistParam moment_type;
 	/// sufficient statistic expectation
-	typedef NatParamVec suff_mean_type;
+	typedef DistParam suff_mean_type;
 protected:
 	/// observed value
 	value_type m_value;

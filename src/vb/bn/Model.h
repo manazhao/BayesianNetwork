@@ -9,6 +9,7 @@
 #define MODEL_H_
 
 #include "Variable.h"
+#include "../prob/DistParamBundle.h"
 #include <map>
 #include <set>
 using namespace std;
@@ -34,18 +35,18 @@ public:
 	/// maps a set of variables to a role
 	typedef map<size_t, var_set> role_var_set_map;
 protected:
-	NatParamVec m_prior;
+	DistParamBundle m_prior;
 	var_role_map m_varRoleMap;
 	role_var_set_map m_roleVarSetMap;
 	var_set m_childVarSet;
 	var_ptr_type m_targetVarPtr;
 	bool m_isObserved;
 protected:
-	virtual void _process_child_message(NatParamVec message){
+	virtual void _process_child_message(DistParamBundle message){
 
 	}
-	virtual NatParamVec _update_from_child();
-	virtual NatParamVec _update_from_parent() = 0;
+	virtual DistParamBundle _update_from_child();
+	virtual DistParamBundle _update_from_parent() = 0;
 	void _add_child_var(string const& varId) {
 		m_childVarSet.insert(varId);
 	}
@@ -60,13 +61,11 @@ public:
 		}
 		return *(varSet.begin());
 	}
-
-	virtual NatParamVec to_parent_message(string const& varId) = 0;
-	void setPrior(NatParamVec const& natStat){
+	virtual DistParamBundle to_parent_message(string const& varId) = 0;
+	void setPrior(DistParamBundle const& natStat){
 		m_prior = natStat;
 	}
 	void update();
-
 	virtual ~ProbModel() {
 	}
 };

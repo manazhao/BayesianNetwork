@@ -13,6 +13,7 @@
 #include "../prob/Gaussian.h"
 #include "../prob/InverseGamma.h"
 #include "../prob/MVInverseGamma.h"
+#include "../prob/DiagMVGaussian.h"
 
 namespace bn {
 using namespace prob;
@@ -38,11 +39,11 @@ public:
 	BaseVariable(string const& id, string const& name) :
 			m_id(id), m_name(name) {
 	}
-	virtual void updateOnMessage(NatParamVec const& rhs) = 0;
+	virtual void updateOnMessage(DistParamBundle const& rhs) = 0;
 	virtual void reset() = 0;
 	virtual size_t size() const = 0;
-	virtual NatParamVec moment(size_t const& order) = 0;
-	virtual NatParamVec suff_mean(size_t const& idx) = 0;
+	virtual DistParam moment(size_t const& order) = 0;
+	virtual DistParam suff_mean(size_t const& idx) = 0;
 	virtual ostream& print(ostream& oss) = 0;
 	virtual ~BaseVariable() {
 	}
@@ -82,14 +83,14 @@ public:
 	T& getDistribution(){
 		return m_var;
 	}
-	virtual NatParamVec moment(size_t const& order){
+	virtual DistParam moment(size_t const& order){
 		return m_var.moment(order);
 	}
-	virtual NatParamVec suff_mean(size_t const& idx){
+	virtual DistParam suff_mean(size_t const& idx){
 		return m_var.suff_mean(idx);
 	}
 
-	virtual void updateOnMessage(NatParamVec const& rhs){
+	virtual void updateOnMessage(DistParamBundle const& rhs){
 		m_var = rhs;
 	}
 

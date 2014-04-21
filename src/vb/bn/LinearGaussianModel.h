@@ -43,7 +43,7 @@ protected:
 	vector<string> m_aVec;
 	vector<string> m_bVec;
 protected:
-	virtual NatParamVec _update_from_parent();
+	virtual DistParamBundle _update_from_parent();
 public:
 	LinearGaussianModel(string const& id, string const& name,
 			dist_type const& distVal, bool isObserved = false) :
@@ -66,7 +66,7 @@ public:
 			break;
 		}
 	}
-	virtual NatParamVec to_parent_message(string const& varId);
+	virtual DistParamBundle to_parent_message(string const& varId);
 	virtual ~LinearGaussianModel() {
 	}
 };

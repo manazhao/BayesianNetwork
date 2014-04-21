@@ -9,6 +9,7 @@
 #define MVINVERSEGAMMA_H_
 
 #include "Distribution.h"
+#include "DistParamBundle.h"
 
 namespace prob {
 
@@ -30,8 +31,6 @@ public:
 		// TODO Auto-generated constructor stub
 
 	}
-
-
 	MVInverseGamma(size_t const& dim) :
 			Distribution<vec>(false), m_alpha_vec(dim), m_beta_vec(dim), m_ss_cache(
 					dim, 2),m_dim(dim) {
@@ -46,8 +45,7 @@ public:
 		return m_dim;
 	}
 
-	MVInverseGamma(NatParamVec const& paramVec);
-	void toNonCanonical();
+	void to_non_canonical();
 	void reset();
 	size_t size() const{
 		return m_alpha_vec.size();
@@ -60,8 +58,9 @@ public:
 		return dMVIG;
 	}
 	void updateSSCache();
-	MVInverseGamma& operator=(NatParamVec const& paramVec);
-	operator NatParamVec();
+	MVInverseGamma(DistParamBundle const& paramBundle);
+	MVInverseGamma& operator=(DistParamBundle const& paramVec);
+	operator DistParamBundle() const;
 	MVInverseGamma operator!() const;
 	MVInverseGamma operator+(MVInverseGamma const& rhs) const;
 	MVInverseGamma& operator+=(MVInverseGamma const& rhs);

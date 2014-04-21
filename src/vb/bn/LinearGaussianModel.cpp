@@ -11,13 +11,13 @@
 namespace bn {
 
 template<class T>
-NatParamVec LinearGaussianModel<T>::to_parent_message(string const& varId) {
+DistParamBundle LinearGaussianModel<T>::to_parent_message(string const& varId) {
 	VBMEngine& ENGINE = VBMEngine::get_engine();
 	var_ptr_type& varianceVar = ENGINE.get_variable(
 			get_var_by_role(LinearGaussianModel<>::COND_VAR));
 	size_t varRole = m_varRoleMap[varId];
 	assert(varRole);
-	NatParamVec message((size_t) 2, true);
+	DistParamBundle message(2, true);
 	message[0] = m_targetVarPtr->moment(1);
 	switch (varRole) {
 	case LinearGaussianModel<>::COND_A: {
@@ -78,13 +78,13 @@ NatParamVec LinearGaussianModel<T>::to_parent_message(string const& varId) {
 }
 
 template<class T>
-NatParamVec LinearGaussianModel<T>::_update_from_parent() {
+DistParamBundle LinearGaussianModel<T>::_update_from_parent() {
 	VBMEngine& ENGINE = VBMEngine::get_engine();
 //	var_ptr_type& varianceVar = ENGINE.get_variable(
 //			get_var_by_role(LinearGaussianModel<>::COND_VAR));
 //	NatParamVec vSuffMean = varianceVar->suff_mean();
 //	float vsf2 = vSuffMean[1]; /// the expectation of 1/\sigma^2
-	NatParamVec resultStat((size_t) 2, true);
+	DistParamBundle resultStat(2, true);
 //	for (size_t i = 0; i < m_aVec.size(); i++) {
 //		string& aVarId = m_aVec[i];
 //		string& bVarId = m_bVec[i];

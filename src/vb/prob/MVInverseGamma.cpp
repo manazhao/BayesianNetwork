@@ -10,17 +10,19 @@
 
 namespace prob {
 
-MVInverseGamma::MVInverseGamma(NatParamVec const& paramVec):m_dim(0){
-	m_is_canonical = paramVec.m_is_canonical;
-	assert(paramVec.size() >=2 && paramVec.size() % 2 == 0);
-	m_dim  = paramVec.size() >> 1;
-	m_alpha_vec = paramVec.m_vec.rows(0,m_dim - 1);
-	m_beta_vec = paramVec.m_vec.rows(m_dim, 2 * m_dim - 1);
+MVInverseGamma::MVInverseGamma(DistParamBundle const& paramBundle):m_dim(0){
+	m_is_canonical = paramBundle.m_is_canonical;
+	assert(paramBundle.size() == 2);
+	m_dim = paramBundle[0].size();
+	vec alpha = paramBundle[0];
+	vec beta = paramBundle[1];
+	m_alpha_vec = alpha;
+	m_beta_vec = beta;
 	m_ss_cache = mat(m_dim,2);
 	m_is_updated = true;
 }
 
-void MVInverseGamma::toNonCanonical() {
+void MVInverseGamma::to_non_canonical() {
 	if (m_is_canonical) {
 		(*this) = !(*this);
 	}
@@ -57,7 +59,7 @@ MVInverseGamma::moment_type MVInverseGamma::moment(size_t const& order) {
 			break;
 		}
 	} else {
-		toNonCanonical();
+		to_non_canonical();
 		vec& a = m_alpha_vec;
 		vec& b = m_beta_vec;
 		switch (order) {
@@ -69,7 +71,7 @@ MVInverseGamma::moment_type MVInverseGamma::moment(size_t const& order) {
 			break;
 		}
 	}
-	return NatParamVec(mVal);
+	return DistParam(mVal);
 }
 
 /**
@@ -92,7 +94,7 @@ void MVInverseGamma::updateSSCache(){
 			m_ss_cache.col(0) = log(m_value);
 			m_ss_cache.col(1) = 1/m_value;
 		}else{
-			toNonCanonical();
+			to_non_canonical();
 			vec& a = m_alpha_vec;
 			vec& b = m_beta_vec;
 			for(size_t i = 0; i < m_alpha_vec.size(); i++){
@@ -105,21 +107,22 @@ void MVInverseGamma::updateSSCache(){
 }
 
 
-MVInverseGamma& MVInverseGamma::operator=(NatParamVec const& paramVec) {
-	assert( paramVec.size() % 2 == 0 && paramVec.size() >= 2);
-	m_is_canonical = paramVec.m_is_canonical;
-	size_t dim = paramVec.size() >> 1;
-	m_alpha_vec = paramVec.m_vec.rows(0,dim-1);
-	m_beta_vec = paramVec.m_vec.rows(dim,2 * dim - 1);
+MVInverseGamma& MVInverseGamma::operator=(DistParamBundle const& paramBundle) {
+	assert(paramBundle.size() == 2);
+	m_is_canonical = paramBundle.m_is_canonical;
+	vec alpha = paramBundle[0];
+	vec beta = paramBundle[1];
+	m_alpha_vec = alpha;
+	m_beta_vec = beta;
 	m_is_updated = true;
 	return *this;
 }
 
-MVInverseGamma::operator NatParamVec() {
-	NatParamVec fp((size_t) 2 * m_alpha_vec.size(), m_is_canonical);
-	fp.m_vec.rows(0,m_alpha_vec.size()-1) = m_alpha_vec;
-	fp.m_vec.rows(m_alpha_vec.size(), 2 * m_alpha_vec.size() -1) = m_beta_vec;
-	return fp;
+MVInverseGamma::operator DistParamBundle()const {
+	DistParamBundle pb(2,m_is_canonical);
+	pb[0] = m_alpha_vec;
+	pb[1] = m_beta_vec;
+	return pb;
 }
 
  MVInverseGamma MVInverseGamma::operator!() const {
@@ -146,7 +149,7 @@ MVInverseGamma& MVInverseGamma::operator+=(MVInverseGamma const& rhs) {
 
 ostream& operator<<(ostream& oss, MVInverseGamma const& dist){
 	oss << "-----------------------------------------" << endl;
-	oss << "alpha: " << (NatParamVec)dist.m_alpha_vec << ", beta:" << (NatParamVec)dist.m_beta_vec
+	oss << "alpha: " << (DistParam)dist.m_alpha_vec << ", beta:" << (DistParam)dist.m_beta_vec
 			<< ", is natural:" << dist.m_is_canonical << endl;
 	oss << "-----------  moment ----------------" << endl;
 	MVInverseGamma& dist1 = const_cast<MVInverseGamma&>(dist);

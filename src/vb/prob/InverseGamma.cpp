@@ -12,7 +12,7 @@ namespace prob {
 void test_inverse_gamma() {
 	InverseGamma ig(3, 3);
 	cout << ig << endl;
-	NatParamVec fp = (NatParamVec) ig;
+	DistParamBundle fp = (DistParamBundle) ig;
 	cout << "fp:" << fp << endl;
 	InverseGamma ig1(fp);
 	cout << "ig1:" << ig1 << endl;
@@ -24,8 +24,8 @@ void test_inverse_gamma() {
 	InverseGamma::moment_type secondMoment = ig2.moment(2);
 	cout << "first moment:" << firstMoment << ", second moment:" << secondMoment
 			<< endl;
-	NatParamVec suffMean1 = ig2.suff_mean(1);
-	NatParamVec suffMean2 = ig2.suff_mean(2);
+	DistParam suffMean1 = ig2.suff_mean(1);
+	DistParam suffMean2 = ig2.suff_mean(2);
 	cout << "sufficient mean:" << suffMean1 << endl << suffMean2 << endl;
 }
 

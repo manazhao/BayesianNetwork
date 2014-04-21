@@ -23,8 +23,8 @@ public:
 		COND_MEAN = 1, COND_VAR
 	};
 protected:
-	virtual NatParamVec _update_from_parent();
-	virtual void _process_child_message(NatParamVec& message);
+	virtual DistParamBundle _update_from_parent();
+	virtual void _process_child_message(DistParamBundle& message);
 public:
 	/**
 	 * create an hidden Gaussian random variable
@@ -40,7 +40,7 @@ public:
 					var_ptr_type(
 							new var_type(id, name, dist_type::observation(val))),true) {
 	}
-	virtual NatParamVec to_parent_message(string const& varId);
+	virtual DistParamBundle to_parent_message(string const& varId);
 };
 
 }

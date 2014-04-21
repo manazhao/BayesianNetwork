@@ -23,8 +23,8 @@ public:
 		COND_ALPHA, COND_BETA
 	};
 protected:
-	virtual NatParamVec _update_from_parent();
-	virtual void _process_child_message(NatParamVec& message);
+	virtual DistParamBundle _update_from_parent();
+	virtual void _process_child_message(DistParamBundle& message);
 public:
 	InverseGammaModel(string const& id, string const& name) :
 			ProbModel(var_ptr_type(new var_type(id, name, dist_type())),false) {
@@ -36,8 +36,8 @@ public:
 
 	}
 
-	virtual NatParamVec to_parent_message(string const& varId) {
-		return NatParamVec();
+	virtual DistParamBundle to_parent_message(string const& varId) {
+		return DistParamBundle();
 	}
 
 	virtual ~InverseGammaModel(){}

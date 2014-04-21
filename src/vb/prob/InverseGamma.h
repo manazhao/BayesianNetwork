@@ -8,6 +8,7 @@
 #ifndef INVERSEGAMMA_H_
 #define INVERSEGAMMA_H_
 #include "Distribution.h"
+#include "DistParamBundle.h"
 #include <boost/math/special_functions/digamma.hpp>
 
 namespace prob {
@@ -43,13 +44,13 @@ public:
 		return dIG;
 	}
 
-	void updateSSCache() {
+	void update_ss_cache() {
 		if (m_is_updated) {
 			if (is_observed()) {
 				m_ss_cache[0] = log(m_value);
 				m_ss_cache[1] = 1 / m_value;
 			} else {
-				toNonCanonical();
+				to_non_canonical();
 				float b = m_beta;
 				float a = m_alpha;
 				m_ss_cache[0] = log(b) - boost::math::digamma(a);
@@ -59,14 +60,14 @@ public:
 		}
 	}
 
-	InverseGamma(NatParamVec const& paramVec){
-		m_is_canonical = paramVec.m_is_canonical;
-		assert(paramVec.size() == 2);
-		m_alpha = paramVec[0];
-		m_beta = paramVec[1];
+	InverseGamma(DistParamBundle const& paramBundle){
+		m_is_canonical = paramBundle.m_is_canonical;
+		assert(paramBundle.m_num_params == 2);
+		m_alpha = paramBundle[0];
+		m_beta = paramBundle[1];
 		m_is_updated = true;
 	}
-	void toNonCanonical() {
+	void to_non_canonical() {
 		if (m_is_canonical) {
 			(*this) = !(*this);
 		}
@@ -106,7 +107,7 @@ public:
 				break;
 			}
 		} else {
-			toNonCanonical();
+			to_non_canonical();
 			float a = m_alpha;
 			float b = m_beta;
 			switch (order) {
@@ -131,25 +132,23 @@ public:
 	 */
 	suff_mean_type suff_mean(size_t const& idx) {
 		assert(idx == 1 || idx == 2);
-		updateSSCache();
+		update_ss_cache();
 		return m_ss_cache[idx - 1];
 	}
 
-	InverseGamma& operator=(NatParamVec const& paramVec) {
-		m_is_canonical = paramVec.m_is_canonical;
-		if (paramVec.m_vec.size() != 2) {
-			throw std::exception();
-		}
-		m_alpha = paramVec.m_vec[0];
-		m_beta = paramVec.m_vec[1];
+	InverseGamma& operator= (DistParamBundle const& paramBundle) {
+		m_is_canonical = paramBundle.m_is_canonical;
+		assert(paramBundle.m_num_params == 2);
+		m_alpha = paramBundle[0];
+		m_beta = paramBundle[1];
 		m_is_updated = true;
 		return *this;
 	}
 
-	operator NatParamVec() {
-		NatParamVec fp((size_t) 2, m_is_canonical);
-		fp.m_vec[0] = m_alpha;
-		fp.m_vec[1] = m_beta;
+	operator DistParamBundle() const {
+		DistParamBundle fp(2, m_is_canonical);
+		fp[0] = m_alpha;
+		fp[1] = m_beta;
 		return fp;
 	}
 

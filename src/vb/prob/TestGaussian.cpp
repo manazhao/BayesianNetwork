@@ -6,6 +6,8 @@
  */
 
 #include "TestGaussian.h"
+#include "DistParamBundle.h"
+#include "DiagMVGaussian.h"
 
 using namespace prob;
 /// testing cases
@@ -52,40 +54,13 @@ void test_DiagMVGaussian() {
 	cout << !dg1 << endl;
 	cout << "dg2 = dg + dg1" << endl;
 	cout << dg2 << endl;
-	NatParamVec dgNP = (NatParamVec) dg;
+	DistParamBundle dgNP = (DistParamBundle) dg;
 	DiagMVGaussian dgRecover(dgNP);
 	cout << "dg recovered from natural parameter:" << dgRecover << endl;
-	DiagMVGaussian dgRecoverInv((NatParamVec) !dgRecover);
+	DiagMVGaussian dgRecoverInv((DistParamBundle) !dgRecover);
 	dgRecover = dgNP;
 	cout << "dg recovered from inverted natural parameter:" << dgRecover
 			<< endl;
-
-}
-
-void test_SphereMVGaussian(){
-//	colvec mean = randn<colvec>(2);
-//	float cov = 1;
-//	SphereMVGaussian dg(mean, cov);
-//	SphereMVGaussian invDg = !dg;
-//	SphereMVGaussian dg1(randn<colvec>(2), cov * 2);
-//	SphereMVGaussian dg2 = dg + dg1;
-//	cout << "dg" << endl;
-//	cout << dg << endl;
-//	cout << "invDg" << endl;
-//	cout << invDg << endl;
-//	cout << "dg1" << endl;
-//	cout << dg1 << endl;
-//	cout << "invDg1" << endl;
-//	cout << !dg1 << endl;
-//	cout << "dg2 = dg + dg1" << endl;
-//	cout << dg2 << endl;
-//	NatParamVec dgNP = (NatParamVec) dg;
-//	SphereMVGaussian dgRecover(dgNP);
-//	cout << "dg recovered from natural parameter:" << dgRecover << endl;
-//	SphereMVGaussian dgRecoverInv((NatParamVec) !dgRecover);
-//	dgRecover = dgNP;
-//	cout << "dg recovered from inverted natural parameter:" << dgRecover
-//			<< endl;
 
 }
 
@@ -99,9 +74,9 @@ void test_Gaussian() {
 	cout << "param2 inv:" << endl << !param2 << endl;
 	cout << "param3=param1+param2: " <<endl<< param3 << endl;
 	cout << "param3 inv:" << endl << !param3 << endl;
-	NatParamVec param1Nat = (NatParamVec)param1;
+	DistParamBundle param1Nat = (DistParamBundle)param1;
 	Gaussian param1Recover(param1Nat);
-	Gaussian param1RecoverInv((NatParamVec)!param1);
+	Gaussian param1RecoverInv((DistParamBundle)!param1);
 	cout << "param1 recover from nat stat:" << endl << param1Recover << endl;
 	cout << "param1 recover from inv nat stat:" << endl << param1RecoverInv << endl;
 }

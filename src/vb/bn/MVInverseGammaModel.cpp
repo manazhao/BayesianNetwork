@@ -16,7 +16,7 @@ MVInverseGammaModel::MVInverseGammaModel(string const& id, string const& name)
 
 }
 
-NatParamVec MVInverseGammaModel::_update_from_parent(){
+DistParamBundle MVInverseGammaModel::_update_from_parent(){
 	var_ptr_type& alphaVar = VBMEngine::get_engine().get_variable(get_var_by_role(MVInverseGammaModel::COND_ALPHA));
 	var_ptr_type& betaVar = VBMEngine::get_engine().get_variable(get_var_by_role(MVInverseGammaModel::COND_BETA));
 	size_t dim = m_targetVarPtr->size();
@@ -30,9 +30,9 @@ NatParamVec MVInverseGammaModel::_update_from_parent(){
 	}
 	/// the natural statistics in original model parameters are
 	/// [-\alpna - 1, -\beta]
-	NatParamVec parentStat((size_t)dim * 2,true);
-	parentStat.m_vec.cols(0,dim-1) = -alphaMean - 1;
-	parentStat.m_vec.cols(dim,2 * dim - 1) = -betaMean;
+	DistParamBundle parentStat(2,true);
+	parentStat[0].m_vec = -alphaMean - 1;
+	parentStat[1].m_vec = -betaMean;
 	return parentStat;
 }
 

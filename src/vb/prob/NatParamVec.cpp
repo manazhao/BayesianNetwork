@@ -9,7 +9,7 @@
 
 namespace prob {
 
-ostream& operator<<(ostream& oss, NatParamVec const& param) {
+ostream& operator<<(ostream& oss, DistParam const& param) {
 	for(size_t i = 0; i < param.m_vec.size(); i++){
 		oss << (i == 0? "" :",") << param[i];
 	}

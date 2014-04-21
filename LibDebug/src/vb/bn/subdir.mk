@@ -7,8 +7,6 @@ CPP_SRCS += \
 ../src/vb/bn/DiagMVGaussianModel.cpp \
 ../src/vb/bn/DiagMVGaussianModel_test.cpp \
 ../src/vb/bn/GaussianModel.cpp \
-../src/vb/bn/GaussianProductModel.cpp \
-../src/vb/bn/GaussianProductModel_test.cpp \
 ../src/vb/bn/HyperParamModel.cpp \
 ../src/vb/bn/HyperParamModel_test.cpp \
 ../src/vb/bn/InverseGammaModel.cpp \
@@ -24,8 +22,6 @@ OBJS += \
 ./src/vb/bn/DiagMVGaussianModel.o \
 ./src/vb/bn/DiagMVGaussianModel_test.o \
 ./src/vb/bn/GaussianModel.o \
-./src/vb/bn/GaussianProductModel.o \
-./src/vb/bn/GaussianProductModel_test.o \
 ./src/vb/bn/HyperParamModel.o \
 ./src/vb/bn/HyperParamModel_test.o \
 ./src/vb/bn/InverseGammaModel.o \
@@ -41,8 +37,6 @@ CPP_DEPS += \
 ./src/vb/bn/DiagMVGaussianModel.d \
 ./src/vb/bn/DiagMVGaussianModel_test.d \
 ./src/vb/bn/GaussianModel.d \
-./src/vb/bn/GaussianProductModel.d \
-./src/vb/bn/GaussianProductModel_test.d \
 ./src/vb/bn/HyperParamModel.d \
 ./src/vb/bn/HyperParamModel_test.d \
 ./src/vb/bn/InverseGammaModel.d \

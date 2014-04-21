@@ -22,7 +22,7 @@ public:
 		COND_ALPHA, COND_BETA
 	};
 protected:
-	virtual NatParamVec _update_from_parent();
+	virtual DistParamBundle _update_from_parent();
 public:
 	MVInverseGammaModel(string const& id, string const& name);
 	MVInverseGammaModel(string const& id, string const& name, value_type const& value) :
@@ -30,8 +30,8 @@ public:
 
 	}
 
-	virtual NatParamVec to_parent_message(string const& varId) {
-		return NatParamVec();
+	virtual DistParamBundle to_parent_message(string const& varId) {
+		return DistParamBundle();
 	}
 
 	virtual ~MVInverseGammaModel();

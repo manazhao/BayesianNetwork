@@ -8,7 +8,7 @@
 #ifndef DIAGMVGAUSSIANMODEL_H_
 #define DIAGMVGAUSSIANMODEL_H_
 #include "Model.h"
-
+#include "../prob/DiagMVGaussian.h"
 namespace bn {
 /**
  * by default the node is a observed one with
@@ -24,19 +24,20 @@ public:
 	};
 
 protected:
-	virtual NatParamVec _update_from_parent();
+	virtual DistParamBundle _update_from_parent();
 
 public:
 	DiagMVGaussianModel(string const& id, string const& name,
 			size_t const& dim) :
 			ProbModel(var_ptr_type(new var_type(id, name, dist_type(dim))), false) {
 	}
+
 	DiagMVGaussianModel(string const& id, string const& name,
 			dist_type::value_type const& val, bool isObserved = false) :
 			ProbModel(var_ptr_type(new var_type(id, name, dist_type::observation(val))), true) {
 	}
 
-	virtual NatParamVec to_parent_message(string const& varId);
+	virtual DistParamBundle to_parent_message(string const& varId);
 	virtual ~DiagMVGaussianModel() {
 	}
 };

@@ -30,15 +30,15 @@ void ProbModel::add_parent_var(string const& varId, size_t role) {
 }
 
 
-NatParamVec ProbModel::_update_from_child() {
+DistParamBundle ProbModel::_update_from_child() {
 	// reset the target value natural statistics
 	VBMEngine& ENGINE = VBMEngine::get_engine();
 	/// get statistics from child node and add them to the target variable
-	NatParamVec resultMessage;
+	DistParamBundle resultMessage;
 	for (var_set::iterator iter = m_childVarSet.begin();
 			iter != m_childVarSet.end(); ++iter) {
 		string childVarId = *iter;
-		NatParamVec childMessage =
+		DistParamBundle childMessage =
 				ENGINE.get_model(childVarId)->to_parent_message(m_targetVarPtr->m_id);
 		_process_child_message(childMessage);
 		resultMessage += childMessage;
@@ -50,11 +50,11 @@ void ProbModel::update() {
 	if (!m_isObserved) {
 		/// reset the variable status
 		m_targetVarPtr->reset();
-		NatParamVec parentMessage = _update_from_parent();
-		NatParamVec childMessage = _update_from_child();
+		DistParamBundle parentMessage = _update_from_parent();
+		DistParamBundle childMessage = _update_from_child();
 		/// include the prior information
-		NatParamVec resultMessage = parentMessage + childMessage + m_prior;
-		resultMessage.m_is_canonical = true;
+		DistParamBundle resultMessage = parentMessage + childMessage + m_prior;
+		resultMessage.set_canonical(true);
 		m_targetVarPtr->updateOnMessage(resultMessage);
 	}
 }

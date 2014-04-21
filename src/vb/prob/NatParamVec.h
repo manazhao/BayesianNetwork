@@ -17,35 +17,84 @@ using namespace std;
 
 namespace prob {
 
-struct NatParamVec {
+struct DistParam {
 	vec m_vec;
-	bool m_is_canonical;
-
-	NatParamVec(vec const& vec = vec(), bool is_canonical = false) :
-			m_vec(vec), m_is_canonical(is_canonical) {
+	DistParam(vec const& v = vec()):m_vec(v) {
 	}
-
-	NatParamVec(mat const& m, bool is_canonical = false) :
-			m_vec(vectorise(m)), m_is_canonical(is_canonical) {
+	DistParam(mat const& m) :
+			m_vec(vectorise(m)) {
 	}
-
-	NatParamVec(float const& val, bool is_canonical = false) :
-			m_vec(1), m_is_canonical(is_canonical) {
+	DistParam(float const& val) :
+			m_vec(1){
 		m_vec[0] = val;
 	}
-
-	NatParamVec(size_t const& sz, bool is_canonical = false) :
-			m_vec(sz,fill::zeros), m_is_canonical(is_canonical) {
+	DistParam(size_t const& sz) :
+			m_vec(sz,fill::zeros){
+	}
+	DistParam& operator= (vec const& v){
+		m_vec = v;
+		return *this;
+	}
+	DistParam& operator= (mat const& m){
+		m_vec = vectorise(m);
+		return *this;
 	}
 
-	NatParamVec operator+(NatParamVec const& rhs) const {
-		assert(rhs.size() == size() || rhs.size() == 0);
-		NatParamVec result = *this;
-		if (rhs.size() > 0) {
-			for (size_t i = 0; i < size(); i++) {
-				result[i] += rhs[i];
+	DistParam& operator=(float const& val){
+		m_vec = vec(1);
+		m_vec(0) = val;
+		return *this;
+	}
+
+	DistParam operator+(vec const& v) const{
+		DistParam result = *this;
+		if(v.size() > 0){
+			if(m_vec.size() == 0){
+				result.m_vec = v;
+			}else{
+				assert(m_vec.size() == v.size());
+				result.m_vec += v;
 			}
 		}
+		return result;
+	}
+
+	DistParam operator+(float v) const{
+		DistParam result = *this;
+		if(result.size() == 0){
+			result.m_vec = vec(1);
+		}else{
+			assert(result.size() == 1);
+		}
+		result.m_vec(0) += v;
+		return result;
+	}
+
+	DistParam& operator+= (vec const& v){
+		if(v.size() > 0){
+			if(m_vec.size() == 0){
+				m_vec = v;
+			}else{
+				assert(m_vec.size() == v.size());
+				m_vec += v;
+			}
+		}
+		return *this;
+	}
+
+	DistParam& operator+= (float const& v){
+		if(size() == 0){
+			m_vec = vec(1);
+		}else{
+			assert(m_vec.size() == 1);
+		}
+		m_vec(0) += v;
+		return *this;
+	}
+
+	DistParam operator+(DistParam const& rhs) const {
+		DistParam result = *this;
+		result += rhs.m_vec;
 		return result;
 	}
 
@@ -53,37 +102,9 @@ struct NatParamVec {
 		return size() == 0;
 	}
 
-	NatParamVec& operator+=(NatParamVec const& rhs) {
-		if (is_empty()) {
-			*this = rhs;
-		} else if (!rhs.is_empty()) {
-			assert(size() == rhs.size());
-			for (size_t i = 0; i < size(); i++) {
-				(*this)[i] += rhs[i];
-			}
-		}
+	DistParam& operator+=(DistParam const& rhs) {
+		(*this) += rhs.m_vec;
 		return *this;
-	}
-
-	vec range_slice(size_t from, size_t to) {
-		return m_vec.subvec(from, to);
-	}
-	void range_assign(size_t from, vec const& vals) {
-		assert(from + vals.size() <= m_vec.size());
-		for (size_t i = 0; i < vals.size(); i++) {
-			m_vec(i + from) = vals[i];
-		}
-	}
-
-	void range_assign(size_t from, float& val) {
-		m_vec(from) = val;
-	}
-
-	void range_assign(size_t from, mat const& vals) {
-		assert(from + vals.size() <= m_vec.size());
-		for (size_t i = 0; i < vals.size(); i++) {
-			m_vec(i + from) = vals(i);
-		}
 	}
 
 	size_t size() const {
@@ -102,13 +123,26 @@ struct NatParamVec {
 		return m_vec;
 	}
 
-	operator float() {
-		return m_vec[0];
+	operator const vec() const{
+		return m_vec;
+	}
+
+	operator const float() {
+		return m_vec(0);
+	}
+
+	operator const float() const{
+		return m_vec(0);
+	}
+
+	DistParam& reset(){
+		m_vec.fill(0);
+		return *this;
 	}
 
 };
 
-ostream& operator<<(ostream& oss, NatParamVec const& param);
+ostream& operator<<(ostream& oss, DistParam const& param);
 
 }
 

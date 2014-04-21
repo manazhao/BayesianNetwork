@@ -18,8 +18,8 @@ class HyperParameter: public bn::ProbModel {
 	typedef Variable<dist_type> var_type;
 	typedef typename T::value_type dist_val_type;
 protected:
-	virtual NatParamVec _update_from_parent() {
-		return NatParamVec();
+	virtual DistParamBundle _update_from_parent() {
+		return DistParamBundle();
 	}
 public:
 	HyperParameter(string const& id, string const& name, dist_val_type const& distVal) :
@@ -29,8 +29,8 @@ public:
 					true) {
 
 	}
-	virtual NatParamVec to_parent_message(string const& varId) {
-		return NatParamVec();
+	virtual DistParamBundle to_parent_message(string const& varId) {
+		return DistParamBundle();
 	}
 	virtual ~HyperParameter() {
 	}
