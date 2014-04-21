@@ -75,7 +75,7 @@ DiagMVGaussian::suff_mean_type DiagMVGaussian::suff_mean(size_t const& idx) {
 	return moment(idx);
 }
 
-DiagMVGaussian::DiagMVGaussian(DistParamBundle const& paramBundle) {
+DiagMVGaussian::DiagMVGaussian(DistParamBundle const& paramBundle):m_cache_suff(true) {
 	m_is_canonical = paramBundle.m_is_canonical;
 	DistParam const& firstComponent = paramBundle[0];
 	DistParam const& secondComponent = paramBundle[1];
