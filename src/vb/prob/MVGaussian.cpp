@@ -40,6 +40,7 @@ MVGaussian::moment_type MVGaussian::moment(size_t const& order) {
 				/// try to use the cached result
 				if(m_is_updated){
 					m_som_cache = vectorise(m_value * m_value.t());
+					m_is_updated = false;
 				}
 				mVal = (vec)vectorise(m_som_cache);
 			}else{
@@ -50,6 +51,7 @@ MVGaussian::moment_type MVGaussian::moment(size_t const& order) {
 			if(m_cache_suff){
 				if(m_is_updated){
 					m_som_cache = vectorise(m_mean * m_mean.t() + m_cov);
+					m_is_updated = false;
 				}
 				mVal = (vec)vectorise(m_som_cache);
 			}else{
