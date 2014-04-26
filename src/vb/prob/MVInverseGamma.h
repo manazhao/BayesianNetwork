@@ -21,6 +21,16 @@ public:
 	//// cache the sufficient statistics
 	mat m_ss_cache;
 	size_t m_dim;
+private:
+	friend class boost::serialization::access;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned int version){
+		ar & boost::serialization::base_object<Distribution<vec> >(*this);
+		ar & m_alpha_vec;
+		ar & m_beta_vec;
+		ar & m_ss_cache;
+		ar & m_dim;
+	}
 protected:
 	MVInverseGamma(vec const& value, bool) :
 			Distribution<vec>(value),m_ss_cache(value.size(),2),m_dim(value.size()) {

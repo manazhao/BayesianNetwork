@@ -20,6 +20,13 @@ protected:
 	float m_alpha;
 	float m_beta;
 	float m_ss_cache[2];
+private:
+	friend class boost::serialization::access;
+	template<typename Archive>
+	void serialize(Archive& ar, const unsigned version){
+		ar & boost::serialization::base_object<Distribution<float> >(*this);
+		ar & m_alpha & m_beta & m_ss_cache[0] & m_ss_cache[1];
+	}
 protected:
 	InverseGamma(float const& val) :
 			Distribution<float>(val), m_alpha(0), m_beta(0) {

@@ -21,6 +21,16 @@ protected:
 	bool m_cache_suff;
 	/// second order moment cache (sufficient cache)
 	vec m_som_cache;
+private:
+	friend class boost::serialization::access;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned int version){
+		ar & boost::serialization::base_object<Distribution<vec> >(*this);
+		ar & m_mean;
+		ar & m_cov;
+		ar & m_cache_suff;
+		ar & m_som_cache;
+	}
 protected:
 	MVGaussian(vec const& value, bool isSample, bool cacheSuff = false) :
 			Distribution<vec>(value),m_cache_suff(cacheSuff) {

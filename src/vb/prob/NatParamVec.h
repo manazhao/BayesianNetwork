@@ -11,6 +11,7 @@
 #include <boost/shared_ptr.hpp>
 #include <iostream>
 #include <armadillo>
+#include "ArmadilloSerialization.h"
 using namespace boost;
 using namespace arma;
 using namespace std;
@@ -19,6 +20,13 @@ namespace prob {
 
 struct DistParam {
 	vec m_vec;
+private:
+	friend class boost::serialization::access;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned int version){
+		ar & m_vec;
+	}
+public:
 	DistParam(vec const& v = vec()):m_vec(v) {
 	}
 	DistParam(mat const& m) :

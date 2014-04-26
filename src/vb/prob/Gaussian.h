@@ -20,6 +20,13 @@ protected:
 	Gaussian(float const& value) :
 			Distribution<float>(value), m_mean(value), m_var(0) {
 	}
+private:
+	friend class boost::serialization::access;
+	template <typename Archive>
+	void serialize(Archive& ar, const unsigned int version){
+		/// call base class serialization
+		ar & boost::serialization::base_object<Distribution<float> >(*this) & m_mean & m_var;
+	}
 public:
 	Gaussian(float const& mean, float const& var, bool is_canonical = false) :
 			Distribution<float>(is_canonical), m_mean(mean), m_var(var) {
