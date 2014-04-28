@@ -12,6 +12,7 @@
 #include <ostream>
 #include <armadillo>
 #include "NatParamVec.h"
+#include <boost/serialization/vector.hpp>
 
 using namespace std;
 using namespace arma;
@@ -32,6 +33,14 @@ protected:
 	vector<DistParam> m_params;
 	size_t m_num_params;
 	bool m_is_canonical;
+private:
+	friend class boost::serialization::access;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned int version){
+		ar & m_params;
+		ar & m_num_params;
+		ar & m_is_canonical;
+	}
 public:
 	DistParamBundle(size_t const& numParams = 0, bool isCanonical = true);
 	size_t size() const{

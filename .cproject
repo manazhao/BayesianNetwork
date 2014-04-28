@@ -36,6 +36,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.655746286" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.572079550" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="armadillo"/>
+									<listOptionValue builtIn="false" value="boost_serialization"/>
 									<listOptionValue builtIn="false" value="thrift"/>
 									<listOptionValue builtIn="false" value="thriftz"/>
 									<listOptionValue builtIn="false" value="mysqlcppconn"/>
@@ -351,6 +352,10 @@
 								<option id="gnu.cpp.link.option.flags.1294315077" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 								<option id="gnu.cpp.link.option.libs.1826242391" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="armadillo"/>
+									<listOptionValue builtIn="false" value="boost_serialization"/>
+									<listOptionValue builtIn="false" value="thrift"/>
+									<listOptionValue builtIn="false" value="thriftz"/>
+									<listOptionValue builtIn="false" value="mysqlcppconn"/>
 									<listOptionValue builtIn="false" value="boost_system"/>
 									<listOptionValue builtIn="false" value="boost_filesystem"/>
 									<listOptionValue builtIn="false" value="lapack"/>
@@ -665,6 +670,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1594452585" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.1073413933" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="armadillo"/>
+									<listOptionValue builtIn="false" value="boost_serialization"/>
 									<listOptionValue builtIn="false" value="thrift"/>
 									<listOptionValue builtIn="false" value="thriftz"/>
 									<listOptionValue builtIn="false" value="mysqlcppconn"/>
@@ -985,6 +991,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.156889160" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.1303106941" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="armadillo"/>
+									<listOptionValue builtIn="false" value="boost_serialization"/>
 									<listOptionValue builtIn="false" value="thrift"/>
 									<listOptionValue builtIn="false" value="thriftz"/>
 									<listOptionValue builtIn="false" value="mysqlcppconn"/>

@@ -7,6 +7,7 @@
 
 #include "vb/prob/DistParamBundle.h"
 #include "vb/bn/VBMEngine.h"
+#include "vb/prob/ArmadilloSerialization.h"
 
 using namespace bn;
 using namespace prob;
@@ -18,7 +19,8 @@ void test(){
 	test_DistParamBundle();
 #endif
 #ifdef __TEST_ENGINE__
-	test_engine();
+//	test_engine();
+	test_armadillo_serialization();
 #endif
 
 }

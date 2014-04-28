@@ -8,7 +8,8 @@ src/main.d: ../src/main.cpp ../src/vb/prob/DistParamBundle.h \
  ../src/vb/bn/../prob/InverseGamma.h \
  ../src/vb/bn/../prob/MVInverseGamma.h \
  ../src/vb/bn/../prob/DiagMVGaussian.h \
- ../src/vb/bn/../prob/DistParamBundle.h
+ ../src/vb/bn/../prob/DistParamBundle.h \
+ ../src/vb/prob/ArmadilloSerialization.h
 
 ../src/vb/prob/DistParamBundle.h:
 
@@ -41,3 +42,5 @@ src/main.d: ../src/main.cpp ../src/vb/prob/DistParamBundle.h \
 ../src/vb/bn/../prob/DiagMVGaussian.h:
 
 ../src/vb/bn/../prob/DistParamBundle.h:
+
+../src/vb/prob/ArmadilloSerialization.h:
