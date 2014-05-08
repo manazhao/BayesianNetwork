@@ -13,7 +13,7 @@
 
 namespace prob {
 class Gaussian: public Distribution<float> {
-protected:
+public:
 	float m_mean;
 	float m_var;
 protected:
